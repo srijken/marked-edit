@@ -4,25 +4,25 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
 
-    <title>simple-edit test</title>
+    <title>marked-edit test</title>
 
     <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
 
-    <link rel="import" href="../simple-edit.html">
+    <link rel="import" href="../marked-edit.html">
   </head>
   <body>
     <test-fixture id="basic">
       <template>
-        <simple-edit></simple-edit>
+        <marked-edit></marked-edit>
       </template>
     </test-fixture>
 
     <script>
-      suite('simple-edit', function() {
+      suite('marked-edit', function() {
         test('instantiating the element works', function() {
           var element = fixture('basic');
-          assert.equal(element.is, 'simple-edit');
+          assert.equal(element.is, 'marked-edit');
         });
       });
     </script>

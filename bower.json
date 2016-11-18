@@ -1,7 +1,7 @@
 {
-  "name": "simple-edit",
-  "description": "makes inner element editable",
-  "main": "simple-edit.html",
+  "name": "marked-edit",
+  "description": "markdown based editor",
+  "main": "marked-edit.html",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
     "paper-input": "^1.1.22",
