@@ -1,0 +1,34 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<!--
+`simple-edit`
+makes inner element editable
+
+@demo demo/index.html 
+-->
+
+<dom-module id="simple-edit">
+  <template>
+    <style>
+      :host {
+        display: block;
+      }
+    </style>
+    <h2>Hello [[prop1]]</h2>
+  </template>
+
+  <script>
+    Polymer({
+
+      is: 'simple-edit',
+
+      properties: {
+        prop1: {
+          type: String,
+          value: 'simple-edit',
+        },
+      },
+
+    });
+  </script>
+</dom-module>
