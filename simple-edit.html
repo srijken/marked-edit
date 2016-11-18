@@ -1,5 +1,8 @@
 <link rel="import" href="../polymer/polymer.html">
-
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-input/paper-textarea.html">
+<link rel="import" href="../paper-dialog/paper-dialog.html">
 <!--
 `simple-edit`
 makes inner element editable
@@ -11,10 +14,48 @@ makes inner element editable
   <template>
     <style>
       :host {
-        display: block;
+        cursor: caret;
+      }
+      #markedContainer {
+        display: flex;
+        flex-direction: row;
+      }
+      paper-textarea{
+        min-width: 300px;
+        min-height: 200px;
+        max-width: 960px;
+        max-height: 450px;
+      }
+      #markedContainer{
+        position: relative;
+      }
+      #markedContainer paper-icon-button {
+        display: none;
+        position: absolute;
+        right:0px;
+      }
+      #markedContainer:hover paper-icon-button {
+        display:inline-block;
+        
       }
     </style>
-    <h2>Hello [[prop1]]</h2>
+    
+    <paper-dialog id="dialog" opened="{{_editing}}">
+      <h2>Editor</h2>
+      <paper-textarea id="editor" value="{{value}}" hidden$="[[!_editing]]"></paper-textarea>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Annuleren</paper-button>
+        <paper-button on-tap="_save" dialog-confirm autofocus>Opslaan</paper-button>
+      </div>
+    </paper-dialog>
+    
+    <div id="markedContainer">
+      <marked-element markdown="[[value]]">
+        <div class="markdown-html"></div>
+      </marked-element>
+      <paper-icon-button icon="create" on-tap="_edit" hidden$="[[_editing]]"></paper-icon-button>
+    </div>
+  
   </template>
 
   <script>
@@ -23,11 +64,45 @@ makes inner element editable
       is: 'simple-edit',
 
       properties: {
-        prop1: {
+        enabled: {
+          type: Boolean,
+          value: true
+        },
+        value: {
           type: String,
-          value: 'simple-edit',
+          notify: true,
         },
       },
+      ready: function() {
+        this._editing = false;
+        this.value="`Markdown` is _awesome_!";
+      },
+      attached: function(){
+        // initialize value
+        //var newValue = this.$.editable.children[0].innerHTML;
+        // this.originalValue = newValue;
+        // this.set('value', newValue);
+      },
+      _edit: function(){
+        this.set("_editing", true);
+      },
+      _onkey: function(e) {
+        switch(e.keyCode) {
+          case 27:
+            console.log("escape");
+            break;
+          case 13:
+            console.log("")
+        }
+      },
+      _input: function() {
+        var newValue = this.$.editor.innerHTML;
+        this.set('value', newValue);
+      },
+      _save: function (){
+        this.fire('content-changed');
+        console.log("save");
+      }
 
     });
   </script>
