@@ -43,18 +43,18 @@ makes inner element editable
     
     <paper-dialog id="dialog" opened="{{_editing}}">
       <h2>Editor</h2>
-      <paper-textarea id="editor" value="{{value}}" hidden$="[[!_editing]]"></paper-textarea>
+      <paper-textarea id="editor" on-keydown="_onkey" value="{{value}}"></paper-textarea>
       <div class="buttons">
-        <paper-button dialog-dismiss>Annuleren</paper-button>
+        <paper-button on-tap="_cancel" dialog-dismiss>Annuleren</paper-button>
         <paper-button on-tap="_save" dialog-confirm autofocus>Opslaan</paper-button>
       </div>
     </paper-dialog>
     
     <div id="markedContainer">
-      <marked-element markdown="[[value]]">
+      <marked-element markdown="[[value]]" hidden$="[[!enabled]]">
         <div class="markdown-html"></div>
       </marked-element>
-      <paper-icon-button icon="create" on-tap="_edit" hidden$="[[_editing]]"></paper-icon-button>
+      <paper-icon-button icon="create" on-tap="_edit" hidden$="[[!enabled]]"></paper-icon-button>
     </div>
   
   </template>
@@ -77,33 +77,31 @@ makes inner element editable
       ready: function() {
         this._editing = false;
       },
-      attached: function(){
-        // initialize value
-        //var newValue = this.$.editable.children[0].innerHTML;
-        // this.originalValue = newValue;
-        // this.set('value', newValue);
-      },
       _edit: function(){
+        this.originalValue = this.value;
         this.set("_editing", true);
       },
       _onkey: function(e) {
         switch(e.keyCode) {
           case 27:
-            console.log("escape");
+            this.set('value', this.originalValue);
+            this.set('_editing', false);
+            e.preventDefault();
             break;
-          case 13:
-            console.log("")
+          // case 13:
+          //   console.log("")
         }
       },
       _input: function() {
         var newValue = this.$.editor.innerHTML;
         this.set('value', newValue);
       },
+      _cancel: function() {
+        this.set('value', this.originalValue);
+      },
       _save: function (){
         this.fire('content-changed');
-        console.log("save");
       }
-
     });
   </script>
 </dom-module>
