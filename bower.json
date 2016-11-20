@@ -2,6 +2,7 @@
   "name": "marked-edit",
   "description": "markdown based editor",
   "main": "marked-edit.html",
+  "version": "0.2.1",
   "dependencies": {
     "polymer": "Polymer/polymer#^1.4.0",
     "paper-input": "^1.1.22",
