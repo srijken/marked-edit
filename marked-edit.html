@@ -54,7 +54,7 @@ makes inner element editable
     
     <div id="markedContainer">
       <marked-element markdown="[[value]]">
-        <div class="markdown-html"></div>
+        <content select=".markdown-html"></content>
       </marked-element>
       <paper-icon-button icon="create" on-tap="_edit" hidden$="[[!enabled]]"></paper-icon-button>
     </div>
