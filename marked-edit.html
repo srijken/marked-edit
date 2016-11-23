@@ -56,7 +56,7 @@ makes inner element editable
       <marked-element markdown="[[value]]">
         <content select=".markdown-html"></content>
       </marked-element>
-      <paper-icon-button icon="create" on-tap="_edit" hidden$="[[!enabled]]"></paper-icon-button>
+      <paper-icon-button icon="[[icon]]" on-tap="_edit" hidden$="[[!enabled]]"></paper-icon-button>
     </div>
   
   </template>
@@ -75,6 +75,10 @@ makes inner element editable
           type: String,
           notify: true,
         },
+        icon: {
+          type: String,
+          value: 'create'
+        }
       },
       ready: function() {
         this._editing = false;
